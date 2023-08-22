@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Word Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        label {
+            font-weight: bold;
+            color: #444;
+        }
+
+        #textInput {
+            width: 80%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        p {
+            font-weight: bold;
+            margin-top: 20px;
+            color: #333;
+        }
+
+        #wordCount {
+            color: #007bff;
+        }
+
+        #mostFrequentWord {
+            color: #ff5722;
+        }
+    </style>
+</head>
+<body>
+    <h1>Word Calculator</h1>
+    <label for="textInput">Enter your text:</label>
+    <textarea id="textInput" rows="4" cols="50"></textarea>
+    <br>
+    <button onclick="countWords()">Count Words</button>
+    <p>Number of words: <span id="wordCount">0</span></p>
+    <!-- <p>Most frequent word: <span id="mostFrequentWord">N/A</span></p> -->
+
+    <script>
+        function countWords() {
+            var textInput = document.getElementById("textInput").value;
+            textInput = textInput.trim();
+            var words = textInput.split(/\s+/);
+            document.getElementById("wordCount").textContent = words.length;
+            
+            var wordFrequency = {};
+            var mostFrequentWord = "";
+            var maxFrequency = 0;
+            
+            words.forEach(function (word) {
+                var lowercaseWord = word.toLowerCase();
+                if (wordFrequency[lowercaseWord]) {
+                    wordFrequency[lowercaseWord]++;
+                } else {
+                    wordFrequency[lowercaseWord] = 1;
+                }
+                
+                if (wordFrequency[lowercaseWord] > maxFrequency) {
+                    mostFrequentWord = lowercaseWord;
+                    maxFrequency = wordFrequency[lowercaseWord];
+                }
+            });
+            
+            if (mostFrequentWord) {
+                document.getElementById("mostFrequentWord").textContent = mostFrequentWord;
+            } else {
+                document.getElementById("mostFrequentWord").textContent = "N/A";
+             }
+         }
+    </script>
+</body>
+</html>
